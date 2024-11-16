@@ -48,11 +48,19 @@ chdir($git_root);
 //	Get submodule configs.
 $configs = include(__DIR__.'/include/GetSubmoduleConfig.php');
 
+//	Include op-skeleton config
+require_once(__DIR__.'/../config/op.php');
+
 //	Switch branch.
 foreach( $configs as $config ){
 	//	...
 	$path   = $config['path'];
-	$branch = $config['branch'] ?? 'master';
+	$branch = $config['branch'];
+
+	//	...
+	if(!$branch ){
+		$branch = _OP_APP_BRANCH_;
+	}
 
 	//	...
 	chdir($git_root);
