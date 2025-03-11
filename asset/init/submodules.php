@@ -46,10 +46,10 @@ chdir($git_root);
 `git submodule foreach git config core.hooksPath {$hooks_path}`;
 
 //	Get submodule configs.
-$configs = include(__DIR__.'/include/GetSubmoduleConfig.php');
+$configs = include("{$git_root}/asset/init/include/GetSubmoduleConfig.php");
 
 //	Include op-skeleton config
-require_once(__DIR__.'/../config/op.php');
+require_once("{$git_root}/asset/config/op.php");
 
 //	Switch branch.
 foreach( $configs as $config ){
