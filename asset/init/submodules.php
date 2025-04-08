@@ -67,12 +67,16 @@ foreach( $configs as $config ){
 	chdir($path);
 	echo getcwd() ." --> {$branch}". PHP_EOL;
 
-	//	...
+	//	Check if branch exists.
 	if(!Execute("git show-ref --verify refs/remotes/origin/{$branch}") ){
+		Execute("git checkout origin/main -b {$branch}");
 		echo "\n * This branch has not been exist: {$branch} \n\n";
 		continue;
+	}else{
+		Execute("git checkout {$branch}");
 	}
 
+	/*
 	//	...
 	$commit_id = trim(`git rev-list --max-parents=0 HEAD` ?? '');
 	Execute("git stash save");
@@ -83,6 +87,7 @@ foreach( $configs as $config ){
 	}
 	Execute("git checkout origin/{$branch} -b {$branch}");
 	Execute("git branch -D root");
+	*/
 }
 
 /** Execute command.
