@@ -56,6 +56,7 @@ foreach( $configs as $config ){
 	//	...
 	$path   = $config['path'];
 	$branch = $config['branch'];
+	$remote = $config['remote'] ?? 'origin';
 
 	//	...
 	if(!$branch ){
@@ -73,7 +74,7 @@ foreach( $configs as $config ){
 		echo "\n * This branch has not been exist: {$branch} \n\n";
 		continue;
 	}else{
-		Execute("git checkout {$branch}");
+		Execute("git checkout {$remote}/{$branch} -b {$branch}");
 	}
 
 	/*
