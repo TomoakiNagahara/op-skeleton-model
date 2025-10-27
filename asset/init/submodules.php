@@ -98,6 +98,61 @@ foreach( $configs as $config ){
 }
 }
 
+//	Git submodule foreach.
+GitSubmoduleForeach( $git_root, $configs );
+
+//	op-core
+chdir("{$git_root}/asset/core");
+`git submodule init`;
+`git submodule update`;
+include_once("{$git_root}/asset/unit/git/function/SubmoduleConfig.php");
+$configs = \OP\UNIT\GIT\SubmoduleConfig();
+GitSubmoduleForeach( getcwd(), $configs) ;
+
+/**	Git submodule foreach.
+ *
+ * @created    2025-07-03
+ * @param      array      $configs
+ */
+function GitSubmoduleForeach( string $git_root, array $configs )
+{
+	//	Switch branch.
+	foreach( $configs as $config ){
+		//	...
+		$path   = $config['path'];
+		$branch = $config['branch'] ?? null;
+
+		//	...
+		if(!$branch ){
+			$branch = _OP_APP_BRANCH_;
+		}
+
+		//	...
+		chdir($git_root);
+		chdir($path);
+		echo getcwd() ." --> {$branch}". PHP_EOL;
+
+		//	...
+		GitCheckout( $branch );
+	}
+}
+
+/**	Git checkout
+ *
+ * @created    2025-07-03
+ * @param      string     $branch
+ */
+function GitCheckout( string $branch )
+{
+	//	Check if branch exists.
+	if(!Execute("git show-ref --verify refs/remotes/origin/{$branch}") ){
+		Execute("git checkout origin/main -b {$branch}");
+		echo "\n * This branch has not been exist: {$branch} \n\n";
+	}else{
+		Execute("git checkout {$branch}");
+	}
+}
+
 /** Execute command.
  *
  * @created    2024-10-08
