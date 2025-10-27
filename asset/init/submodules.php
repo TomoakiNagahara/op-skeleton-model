@@ -86,3 +86,6 @@ foreach( $configs as $config ){
 	*/
 }
 }
+
+//	Git submodule foreach.
+GitSubmoduleForeach( $git_root, $configs );
