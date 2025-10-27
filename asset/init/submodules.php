@@ -52,6 +52,7 @@ $configs = include("{$git_root}/asset/init/include/GetSubmoduleConfig.php");
 //	Include op-skeleton config
 require_once("{$git_root}/asset/config/op.php");
 
+if( false ){
 //	Switch branch.
 foreach( $configs as $config ){
 	//	...
@@ -94,6 +95,7 @@ foreach( $configs as $config ){
 	Execute("git checkout origin/{$branch} -b {$branch}");
 	Execute("git branch -D root");
 	*/
+}
 }
 
 /** Execute command.
