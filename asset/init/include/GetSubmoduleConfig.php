@@ -1,5 +1,5 @@
 <?php
-/** op-skeleton-2025:/asset/init/include/GetSubmoduleConfig.php
+/**	op-skeleton-model:/asset/init/include/GetSubmoduleConfig.php
  *
  * Get submodules config from .gitmodule.
  * This program is independent from OP.
@@ -13,15 +13,16 @@
  *
  * @created    2024-08-28
  * @version    1.0
- * @package    op-skeleton-2025
- * @author     Tomoaki Nagahara <tomoaki.nagahara@gmail.com>
+ * @package    op-skeleton
+ * @subpackage model
+ * @author     Tomoaki Nagahara
  * @copyright  Tomoaki Nagahara All right reserved.
  */
 
-/** Declare strict
+/**	Declare strict
  *
  */
-declare(strict_types=1);
+declare(strict_types=0);
 
 //	Get submodule names
 $names = trim(`git config --get-regexp submodule\..*\.active | grep true | sed 's/^submodule\.//;s/\.active true$//'`);
