@@ -1,0 +1,59 @@
+<?php
+/**	op-skeleton-model:/asset/init/function/GitSubmoduleConfig.php
+ *
+ * @created    2025-10-28
+ * @version    1.0
+ * @package    op-skeleton
+ * @subpackage model
+ * @author     Tomoaki Nagahara
+ * @copyright  Tomoaki Nagahara All right reserved.
+ */
+
+/**	Declare strict
+ *
+ */
+declare(strict_types=0);
+
+/**	namespace
+ *
+ */
+namespace OP\SKELETON\INIT;
+
+/**	Git submodule foreach.
+ *
+ * @created    2025-10-29
+ * @param      string     $file_name
+ * @param      array      $configs
+ */
+function GitSubmoduleConfig( string $file_name, string $git_root ) : array
+{
+	//	...
+	$config = [];
+
+	//	...
+	$save_dir = getcwd();
+
+	//	...
+	chdir($git_root);
+
+	//	Get submodule names
+	$names = trim(`git config --get-regexp submodule\..*\.active | grep true | sed 's/^submodule\.//;s/\.active true$//'`);
+
+	//	...
+	foreach( explode("\n", $names) as $name ){
+		//	...
+		foreach(['url','path','branch','follow'] as $key){
+			//	...
+			$config[$name][$key] = trim(`git config -f {$file_name} --get submodule.{$name}.{$key}` ?? '');
+		}
+
+		//	...
+		$config[$name]['submodule'] = file_exists( $config[$name]['path'].'/'.$file_name ) ? '1': '0';
+	}
+
+	//	...
+	chdir($save_dir);
+
+	//	...
+	return $config;
+}
