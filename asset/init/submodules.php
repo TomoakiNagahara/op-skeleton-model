@@ -75,7 +75,11 @@ foreach( $configs as $config ){
 		echo "\n * This branch has not been exist: {$branch} \n\n";
 		continue;
 	}else{
+		/**	If the branch already exists, an error occurs.
 		Execute("git checkout {$remote}/{$branch} -b {$branch}");
+		*/
+		//	Move to branch if it already exists, create branch if it doesn't.
+		Execute("git checkout {$branch} || git checkout {$remote}/{$branch} -b {$branch}");
 	}
 
 	/*
