@@ -43,8 +43,8 @@ function GitSubmoduleConfig( string $file_name, string $git_root ) : array
 	foreach( explode("\n", $names) as $name ){
 		//	...
 		foreach(['url','path','branch','follow'] as $key){
-			//	...
-			$config[$name][$key] = trim(`git config -f {$file_name} --get submodule.{$name}.{$key}` ?? '');
+			//	Empty line --> null for NULL coalescing operator: $branch = $configs['core']['branch'] ?? 2030
+			$config[$name][$key] = ($var = trim(`git config -f {$file_name} --get submodule.{$name}.{$key}` ?? '')) ? $var: null;
 		}
 
 		//	...
