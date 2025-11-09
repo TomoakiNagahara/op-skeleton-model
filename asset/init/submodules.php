@@ -89,25 +89,3 @@ foreach( $configs as $config ){
 	Execute("git branch -D root");
 	*/
 }
-
-/** Execute command.
- *
- * @created    2024-10-08
- * @param      string     $comand
- * @return     bool
- */
-function Execute(string $comand) : bool
-{
-	/* @var $output array */
-	/* @var $status int   */
-	exec("{$comand} 2>&1", $output, $status);
-
-	//	...
-	if( $status ){
-		echo "\n{$comand} --> {$status}\n\n";
-		echo join("\n", $output) . PHP_EOL . PHP_EOL;
-	}
-
-	//	...
-	return empty($status) ? true: false;
-}
