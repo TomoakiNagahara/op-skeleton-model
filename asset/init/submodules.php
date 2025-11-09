@@ -29,6 +29,7 @@ namespace OP\SKELETON\INIT;
 
 //	...
 require_once(__DIR__.'/function/GitSubmoduleConfig.php');
+require_once(__DIR__.'/function/GitCheckoutTargetBranch.php');
 
 //	Get git root.
 $git_root = trim(`git rev-parse --show-toplevel`);
@@ -72,18 +73,8 @@ foreach( $configs as $config ){
 	chdir($path);
 	echo getcwd() ." --> {$branch}". PHP_EOL;
 
-	//	Check if branch exists.
-	if(!Execute("git show-ref --verify refs/remotes/origin/{$branch}") ){
-		Execute("git checkout origin/main -b {$branch}");
-		echo "\n * This branch has not been exist: {$branch} \n\n";
-		continue;
-	}else{
-		/**	If the branch already exists, an error occurs.
-		Execute("git checkout {$remote}/{$branch} -b {$branch}");
-		*/
-		//	Move to branch if it already exists, create branch if it doesn't.
-		Execute("git checkout {$branch} || git checkout {$remote}/{$branch} -b {$branch}");
-	}
+	//	...
+	GitCheckoutTargetBranch( $remote, $branch );
 
 	/*
 	//	...
