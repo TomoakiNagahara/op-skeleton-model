@@ -60,13 +60,8 @@ require_once("{$git_root}/asset/config/op.php");
 foreach( $configs as $config ){
 	//	...
 	$path   = $config['path'];
-	$branch = $config['branch'];
+	$branch = $config['branch'] ?? _OP_APP_BRANCH_;
 	$remote = $config['remote'] ?? 'origin';
-
-	//	...
-	if(!$branch ){
-		$branch = _OP_APP_BRANCH_;
-	}
 
 	//	...
 	chdir($git_root);
