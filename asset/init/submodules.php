@@ -25,7 +25,7 @@ declare(strict_types=1);
 /**	namespace
  *
  */
-namespace OP;
+namespace OP\SKELETON\INIT;
 
 //	Get git root.
 $git_root = trim(`git rev-parse --show-toplevel`);
