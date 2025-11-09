@@ -27,6 +27,9 @@ declare(strict_types=1);
  */
 namespace OP\SKELETON\INIT;
 
+//	...
+require_once(__DIR__.'/function/GitSubmoduleConfig.php');
+
 //	Get git root.
 $git_root = trim(`git rev-parse --show-toplevel`);
 
@@ -47,7 +50,7 @@ chdir($git_root);
 `git submodule foreach git config core.hooksPath {$hooks_path}`;
 
 //	Get submodule configs.
-$configs = include("{$git_root}/asset/init/include/GetSubmoduleConfig.php");
+$configs = GitSubmoduleConfig('.gitmodules', $git_root);
 
 //	Include op-skeleton config
 require_once("{$git_root}/asset/config/op.php");
