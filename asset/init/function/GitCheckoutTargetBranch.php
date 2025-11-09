@@ -33,7 +33,12 @@ function GitCheckoutTargetBranch( string $branch )
 	if(!Execute("git show-ref --verify refs/remotes/origin/{$branch}") ){
 		Execute("git checkout origin/main -b {$branch}");
 		echo "\n * This branch has not been exist: {$branch} \n\n";
-	}else{
-		Execute("git checkout origin/{$branch}");
+		return;
 	}
+
+	//	If switch fails, doing checkout.
+	if(!Execute("git switch {$branch}" )){
+		Execute("git checkout -b {$branch} origin/{$branch}");
+		Execute("git branch");
+	} // This comment out for git diff.
 }
