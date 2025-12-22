@@ -40,6 +40,7 @@ function GitSubmoduleConfig( string $file_name, string $git_root ) : array
 	$names = trim(`git config --get-regexp submodule\..*\.active | grep true | sed 's/^submodule\.//;s/\.active true$//'`);
 
 	//	...
+	if( $names ){
 	foreach( explode("\n", $names) as $name ){
 		//	...
 		foreach(['url','path','branch','follow'] as $key){
@@ -49,6 +50,7 @@ function GitSubmoduleConfig( string $file_name, string $git_root ) : array
 
 		//	...
 		$config[$name]['submodule'] = file_exists( $config[$name]['path'].'/'.$file_name ) ? '1': '0';
+	}
 	}
 
 	//	...
